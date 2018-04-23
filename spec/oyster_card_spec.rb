@@ -1,6 +1,7 @@
 describe OysterCard do
   let(:max_balance) { described_class::MAX_BALANCE }
   let(:minimum_fare) { described_class::MINIMUM_FARE }
+  let(:station) { double :station }
 
   describe '#initialize' do
     it 'tests a new oyster card has a balance of zero' do
@@ -36,10 +37,16 @@ describe OysterCard do
 
   describe '#touch_in' do
     context 'with sufficient funds' do
+      before { subject.top_up(minimum_fare) }
+
       it 'changes in_journey? to true' do
-        subject.top_up(minimum_fare)
         subject.touch_in
         expect(subject).to be_in_journey
+      end
+
+      fit 'remembers the entry station' do
+        subject.touch_in(station)
+        expect(subject.entry_station).to be station
       end
     end
 
