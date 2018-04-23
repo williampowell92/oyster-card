@@ -11,9 +11,22 @@ class OysterCard
     @balance += value
   end
 
+  def deduct(value)
+    @balance -= value
+  end
+
   private
 
   def exceeds_balance?(value)
     balance + value > MAX_BALANCE
   end
 end
+
+=begin
+
+1. Errors for topping up negative values
+2. Error for deducting below zero
+3. Error for deducting negative values
+4. How to handle currency, pounds and pennies.
+
+=end

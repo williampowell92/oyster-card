@@ -24,4 +24,12 @@ describe OysterCard do
       expect { subject.top_up(max_balance) }.not_to raise_error
     end
   end
+
+  describe '#deduct' do
+    it 'reduces the cards balance' do
+      deduction_value = 200
+      subject.deduct(deduction_value)
+      expect(subject.balance).to eq -deduction_value
+    end
+  end
 end
