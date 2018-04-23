@@ -65,17 +65,28 @@ describe OysterCard do
     end
 
     it 'changes in_journey? to false' do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
 
     it 'deducts a fare' do
-      expect { subject.touch_out }.to change{ subject.balance }.by(-minimum_fare)
+      expect { subject.touch_out(station) }.to change{ subject.balance }.by(-minimum_fare)
     end
 
     it 'forgets entry station on touch out' do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.current_journey[:entry_station]).to be_nil
+    end
+
+    fit 'saves exit station on touch out' do
+      subject.touch_out(station)
+      last_journey = subject.journeys.last
+      expect(last_journey[:exit_station]).to be station
+    end
+
+    fit 'sets current journey to empty hash' do
+      subject.touch_out(station)
+      expect(subject.current_journey).to be_empty
     end
   end
 end
