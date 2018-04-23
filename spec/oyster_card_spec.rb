@@ -7,6 +7,10 @@ describe OysterCard do
     it 'tests a new oyster card has a balance of zero' do
       expect(subject.balance).to eq 0
     end
+
+    it 'creates an empty journey array' do
+      expect(subject.journeys).to be_an_instance_of(Array).and be_empty
+    end
   end
 
   describe '#top_up' do
