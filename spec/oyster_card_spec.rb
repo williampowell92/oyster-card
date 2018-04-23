@@ -74,7 +74,7 @@ describe OysterCard do
     end
 
     it 'deducts a fare' do
-      expect { subject.touch_out(station) }.to change{ subject.balance }.by(-minimum_fare)
+      expect { subject.touch_out(station) }.to change { subject.balance } .by(-minimum_fare)
     end
 
     it 'forgets entry station on touch out' do
