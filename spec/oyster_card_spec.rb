@@ -38,4 +38,19 @@ describe OysterCard do
       expect(subject.in_journey?).to be false
     end
   end
+
+  describe '#touch_in' do
+    it 'changes in_journey? to true' do
+      subject.touch_in
+      expect(subject.in_journey?).to be true
+    end
+  end
+
+  describe '#touch_out' do
+    it 'changes in_journey? to false' do
+      subject.touch_in
+      subject.touch_out
+      expect(subject.in_journey?).to be false
+    end
+  end
 end
