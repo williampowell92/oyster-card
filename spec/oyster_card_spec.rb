@@ -37,16 +37,21 @@ describe OysterCard do
 
   describe '#touch_in' do
     context 'with sufficient funds' do
-      before { subject.top_up(minimum_fare) }
+      before do
+        subject.top_up(minimum_fare)
+        subject.touch_in(station)
+      end
 
       it 'changes in_journey? to true' do
-        subject.touch_in(station)
         expect(subject).to be_in_journey
       end
 
-      fit 'remembers the entry station' do
-        subject.touch_in(station)
+      it 'remembers the entry station' do
         expect(subject.entry_station).to be station
+      end
+
+      fit 'saves the entry station to the journey hash' do
+        expect(subject.current_journey[:entry_station]).to be station
       end
     end
 
