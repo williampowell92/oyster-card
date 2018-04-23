@@ -24,14 +24,6 @@ describe OysterCard do
     end
   end
 
-  describe '#deduct' do
-    it 'reduces the cards balance' do
-      deduction_value = 200
-      subject.deduct(deduction_value)
-      expect(subject.balance).to eq(-deduction_value)
-    end
-  end
-
   describe '#in_journey?' do
     it 'initializes to false' do
       expect(subject.in_journey?).to be false
