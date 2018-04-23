@@ -1,5 +1,6 @@
 class OysterCard
   MAX_BALANCE = 9000
+  MINIMUM_FARE = 100
   attr_reader :balance
 
   def initialize
@@ -21,6 +22,7 @@ class OysterCard
   end
 
   def touch_in
+    raise 'Insufficient funds' if insufficient_funds?
     @in_journey = true
   end
 
@@ -33,6 +35,10 @@ class OysterCard
   def exceeds_balance?(value)
     balance + value > MAX_BALANCE
   end
+
+  def insufficient_funds?
+    balance < MINIMUM_FARE
+  end
 end
 
 =begin
@@ -41,5 +47,7 @@ end
 2. Error for deducting below zero
 3. Error for deducting negative values
 4. How to handle currency, pounds and pennies.
+5. double touching in
+6. double touching out
 
 =end
