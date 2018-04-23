@@ -1,5 +1,3 @@
-require 'oyster_card'
-
 describe OysterCard do
   let(:max_balance) { described_class::MAX_BALANCE }
   let(:minimum_fare) { described_class::MINIMUM_FARE }
@@ -30,7 +28,7 @@ describe OysterCard do
     it 'reduces the cards balance' do
       deduction_value = 200
       subject.deduct(deduction_value)
-      expect(subject.balance).to eq -deduction_value
+      expect(subject.balance).to eq(-deduction_value)
     end
   end
 
@@ -62,6 +60,12 @@ describe OysterCard do
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+    end
+
+    it 'deducts a fare' do
+      subject.top_up(minimum_fare)
+      subject.touch_in
+      expect { subject.touch_out }.to change{ subject.balance }.by(-minimum_fare)
     end
   end
 end
