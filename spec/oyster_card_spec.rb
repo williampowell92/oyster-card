@@ -22,6 +22,10 @@ describe OysterCard do
     it 'does not throw an error when topping up to the max balance' do
       expect { subject.top_up(max_balance) }.not_to raise_error
     end
+
+    it 'throws an error when passed a negative value' do
+      expect { subject.top_up(-1) }.to raise_error('Top up value must be positive')
+    end
   end
 
   describe '#in_journey?' do

@@ -10,6 +10,7 @@ class OysterCard
 
   def top_up(value)
     raise "Exceeded maximum balance of £#{MAX_BALANCE / 100}"  if exceeds_balance?(value)
+    raise 'Top up value must be positive' if value.negative?
     @balance += value
   end
 
@@ -44,9 +45,6 @@ end
 
 =begin
 
-1. Errors for topping up negative values
-2. Error for deducting below zero
-3. Error for deducting negative values
 4. How to handle currency, pounds and pennies.
 5. double touching in
 6. double touching out
