@@ -1,6 +1,8 @@
 require 'oyster_card'
 
 describe OysterCard do
+  let(:max_balance) { described_class::MAX_BALANCE }
+
   describe '#initialize' do
     it 'tests a new oyster card has a balance of zero' do
       expect(subject.balance).to eq 0
@@ -15,7 +17,11 @@ describe OysterCard do
     end
 
     it 'throws an error when trying to top up above limit' do
-      expect { subject.top_up(described_class::MAX_BALANCE + 1) }.to raise_error('Exceeded maximum balance')
+      expect { subject.top_up(max_balance + 1) }.to raise_error("Exceeded maximum balance of £#{max_balance / 100}")
+    end
+
+    it 'does not throw an error when topping up to the max balance' do
+      expect { subject.top_up(max_balance) }.not_to raise_error
     end
   end
 end
