@@ -16,7 +16,7 @@ class OysterCard
   end
 
   def in_journey?
-    !@entry_station.nil?
+    !@current_journey[:entry_station].nil?
   end
 
   def touch_in(station)
@@ -25,7 +25,7 @@ class OysterCard
     save_entry_station(station)
   end
 
-  def touch_out(station)
+  def touch_out
     @in_journey = false
     deduct(MINIMUM_FARE)
     reset_entry_station
@@ -50,7 +50,7 @@ class OysterCard
   end
 
   def reset_entry_station
-    @entry_station = nil
+    @current_journey[:entry_station] = nil
   end
 end
 

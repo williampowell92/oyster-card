@@ -46,11 +46,7 @@ describe OysterCard do
         expect(subject).to be_in_journey
       end
 
-      it 'remembers the entry station' do
-        expect(subject.entry_station).to be station
-      end
-
-      fit 'saves the entry station to the journey hash' do
+      it 'saves the entry station to the journey hash' do
         expect(subject.current_journey[:entry_station]).to be station
       end
     end
@@ -79,7 +75,7 @@ describe OysterCard do
 
     it 'forgets entry station on touch out' do
       subject.touch_out
-      expect(subject.entry_station).to be_nil
+      expect(subject.current_journey[:entry_station]).to be_nil
     end
   end
 end
