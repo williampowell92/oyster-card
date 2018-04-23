@@ -40,7 +40,7 @@ describe OysterCard do
       before { subject.top_up(minimum_fare) }
 
       it 'changes in_journey? to true' do
-        subject.touch_in
+        subject.touch_in(station)
         expect(subject).to be_in_journey
       end
 
@@ -52,7 +52,7 @@ describe OysterCard do
 
     context 'with insufficient funds' do
       it 'throws an error if the card has insufficient balance' do
-        expect { subject.touch_in }.to raise_error 'Insufficient funds'
+        expect { subject.touch_in(station) }.to raise_error 'Insufficient funds'
       end
     end
   end
@@ -60,7 +60,7 @@ describe OysterCard do
   describe '#touch_out' do
     before do
       subject.top_up(minimum_fare)
-      subject.touch_in
+      subject.touch_in(station)
     end
 
     it 'changes in_journey? to false' do
