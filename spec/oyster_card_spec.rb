@@ -51,16 +51,17 @@ describe OysterCard do
   end
 
   describe '#touch_out' do
-    it 'changes in_journey? to false' do
+    before do
       subject.top_up(minimum_fare)
       subject.touch_in
+    end
+
+    it 'changes in_journey? to false' do
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
 
     it 'deducts a fare' do
-      subject.top_up(minimum_fare)
-      subject.touch_in
       expect { subject.touch_out }.to change{ subject.balance }.by(-minimum_fare)
     end
   end
