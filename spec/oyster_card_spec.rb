@@ -32,4 +32,10 @@ describe OysterCard do
       expect(subject.balance).to eq -deduction_value
     end
   end
+
+  describe '#in_journey?' do
+    it 'initializes to false' do
+      expect(subject.in_journey?).to be false
+    end
+  end
 end
