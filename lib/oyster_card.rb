@@ -3,6 +3,7 @@ require 'journey'
 class OysterCard
   MAX_BALANCE = 9000
   MINIMUM_FARE = 100
+
   attr_reader :balance, :journeys, :current_journey
 
   def initialize
@@ -24,8 +25,8 @@ class OysterCard
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
     @current_journey.end(station)
+    deduct(@current_journey.fare)
     save_journey
   end
 
