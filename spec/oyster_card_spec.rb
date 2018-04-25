@@ -8,7 +8,7 @@ describe OysterCard do
       expect(subject.balance).to eq 0
     end
 
-    it 'creates an empty journey array' do
+    it 'creates an empty journeys array' do
       expect(subject.journeys).to be_an_instance_of(Array).and be_empty
     end
   end

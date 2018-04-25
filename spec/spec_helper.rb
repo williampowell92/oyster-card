@@ -5,6 +5,7 @@ require 'simplecov'
 require 'simplecov-console'
 require 'oyster_card'
 require 'station'
+require 'journey'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,
