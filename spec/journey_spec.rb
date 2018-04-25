@@ -36,7 +36,11 @@ describe Journey do
     it 'creates an empty exit station' do
       expect(subject.exit_station).to be_nil
     end
-
   end
 
+  describe '#fare' do
+    context 'entry and exit station exist' do
+      
+    end
+  end
 end

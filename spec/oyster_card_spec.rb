@@ -33,12 +33,6 @@ describe OysterCard do
     end
   end
 
-  describe '#in_journey?' do
-    it 'initializes to false' do
-      expect(subject.in_journey?).to be false
-    end
-  end
-
   describe '#touch_in' do
     context 'with sufficient funds' do
       before do
@@ -46,12 +40,8 @@ describe OysterCard do
         subject.touch_in(station)
       end
 
-      it 'changes in_journey? to true' do
-        expect(subject).to be_in_journey
-      end
-
       it 'saves the entry station to the journey hash' do
-        expect(subject.current_journey[:entry_station]).to be station
+        expect(subject.current_journey.entry_station).to be station
       end
     end
 
@@ -68,29 +58,18 @@ describe OysterCard do
       subject.touch_in(station)
     end
 
-    it 'changes in_journey? to false' do
-      subject.touch_out(station)
-      expect(subject).not_to be_in_journey
-    end
-
     it 'deducts a fare' do
       expect { subject.touch_out(station) }.to change { subject.balance } .by(-minimum_fare)
     end
 
-    it 'forgets entry station on touch out' do
+    it 'saves exit station on touch out' do
       subject.touch_out(station)
-      expect(subject.current_journey[:entry_station]).to be_nil
+      expect(subject.current_journey.exit_station).to eq station
     end
 
-    fit 'saves exit station on touch out' do
+    it 'saves journey to journey history' do
       subject.touch_out(station)
-      last_journey = subject.journeys.last
-      expect(last_journey[:exit_station]).to be station
-    end
-
-    fit 'sets current journey to empty hash' do
-      subject.touch_out(station)
-      expect(subject.current_journey).to be_empty
+      expect(subject.journeys).to include subject.current_journey
     end
   end
 end

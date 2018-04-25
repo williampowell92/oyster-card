@@ -1,3 +1,5 @@
+require 'journey'
+
 class OysterCard
   MAX_BALANCE = 9000
   MINIMUM_FARE = 100
@@ -6,7 +8,6 @@ class OysterCard
   def initialize
     @balance = 0
     @journeys = []
-    @current_journey = {}
   end
 
   def top_up(value)
@@ -16,22 +17,16 @@ class OysterCard
     @balance += value
   end
 
-  def in_journey?
-    !@current_journey[:entry_station].nil?
-  end
-
-  def touch_in(station)
+  def touch_in(station, current_journey = Journey.new)
     raise 'Insufficient funds' if insufficient_funds?
-    @in_journey = true
-    save_entry_station(station)
+    @current_journey = current_journey
+    @current_journey.start(station)
   end
 
   def touch_out(station)
-    @in_journey = false
     deduct(MINIMUM_FARE)
-    save_exit_station(station)
+    @current_journey.end(station)
     save_journey
-    reset_current_journey
   end
 
   private
@@ -48,20 +43,8 @@ class OysterCard
     @balance -= value
   end
 
-  def save_entry_station(station)
-    @current_journey[:entry_station] = station
-  end
-
-  def save_exit_station(station)
-    @current_journey[:exit_station] = station
-  end
-
   def save_journey
     @journeys.push(@current_journey)
-  end
-
-  def reset_current_journey
-    @current_journey = {}
   end
 end
 
