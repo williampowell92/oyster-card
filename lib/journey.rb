@@ -1,4 +1,7 @@
 class Journey
+  MINIMUM_FARE = 100
+  PENALTY_FARE = 600
+
   attr_reader :entry_station, :exit_station
 
   def initialize
@@ -18,8 +21,22 @@ class Journey
     complete_journey
   end
 
+  def fare
+    return PENALTY_FARE if no_exit_station? || no_entry_station?
+    MINIMUM_FARE
+  end
+
   private
+
   def complete_journey
     @complete = true
+  end
+
+  def no_exit_station?
+    @exit_station.nil?
+  end
+
+  def no_entry_station?
+    @entry_station.nil?
   end
 end

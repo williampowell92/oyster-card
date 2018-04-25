@@ -40,7 +40,25 @@ describe Journey do
 
   describe '#fare' do
     context 'entry and exit station exist' do
-      
+      it 'returns the minimum fare' do
+        subject.start(station)
+        subject.end(station)
+        expect(subject.fare).to be described_class::MINIMUM_FARE
+      end
+    end
+
+    context 'entry station exists' do
+      it 'returns the minimum fare' do
+        subject.start(station)
+        expect(subject.fare).to be described_class::PENALTY_FARE
+      end
+    end
+
+    context 'exit station exists' do
+      it 'returns the minimum fare' do
+        subject.end(station)
+        expect(subject.fare).to be described_class::PENALTY_FARE
+      end
     end
   end
 end
