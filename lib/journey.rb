@@ -12,6 +12,10 @@ class Journey
     @complete
   end
 
+  def incomplete?
+    !@complete
+  end
+
   def start(station)
     @entry_station = station
   end

@@ -18,8 +18,10 @@ class OysterCard
     @balance += value
   end
 
-  def touch_in(station, current_journey = Journey.new)
+  def touch_in(station)
+    deduce(@current_journey.fare) if @current_journey.incomplete?
     raise 'Insufficient funds' if insufficient_funds?
+    @current_journey = Journey.new
     @current_journey = current_journey
     @current_journey.start(station)
   end
